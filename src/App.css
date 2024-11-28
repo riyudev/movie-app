@@ -8,3 +8,21 @@
   font-family: "poppins-bold";
   src: local("Poppins-Bold"), url("./fonts/Poppins-Bold.ttf") format("truetype");
 }
+
+@font-face {
+  font-family: "cinzel-regular";
+  src: local("Cinzel-Regular"),
+    url("./fonts/Cinzel-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "cinzel-semibold";
+  src: local("Cinzel-SemiBold"),
+    url("./fonts/Cinzel-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "cinzel-semibold";
+  src: local("Cinzel-SemiBold"),
+    url("./fonts/Cinzel-SemiBold.ttf") format("truetype");
+}

@@ -1,7 +1,7 @@
 @tailwind base;
 @layer base {
   h1 {
-    @apply text-2xl;
+    @apply text-6xl text-white;
   }
   h2 {
     @apply text-xl;
@@ -11,7 +11,7 @@
   }
   li,
   p {
-    @apply font-poppinsRegular text-sm;
+    @apply font-poppinsRegular text-white;
   }
 }
 @tailwind components;
