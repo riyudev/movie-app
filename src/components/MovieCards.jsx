@@ -29,7 +29,9 @@ const MovieCards = ({ title, category }) => {
               alt=""
               className="cursor-pointer object-cover rounded-md"
             />
-            <p className="font-poppinsBold text-center text-lg">{card.name}</p>
+            <p className="font-poppinsBold text-center text-lg cursor-pointer">
+              {card.name}
+            </p>
           </div>
         ))}
       </div>

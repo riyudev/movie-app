@@ -4,10 +4,11 @@ import Banner from "../assets/movie_banner.jpg";
 import { FaPlay } from "react-icons/fa";
 import { GoInfo } from "react-icons/go";
 import MovieCards from "../components/MovieCards";
+import Footer from "../components/Footer.jsx";
 
 function Home() {
   return (
-    <div>
+    <>
       <Navbar />
       <div className="relative">
         <img src={Banner} alt="" className="h-[110vh] w-full object-cover" />
@@ -39,7 +40,8 @@ function Home() {
         <MovieCards title={"Upcoming"} />
         <MovieCards title={"Top Picks for You"} />
       </div>
-    </div>
+      <Footer />
+    </>
   );
 }
 
