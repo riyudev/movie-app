@@ -1,13 +1,13 @@
 @tailwind base;
 @layer base {
   h1 {
-    @apply text-6xl text-white;
+    @apply text-6xl text-white font-cinzelSemiBold;
   }
   h2 {
-    @apply text-xl;
+    @apply text-3xl text-white;
   }
   h3 {
-    @apply text-lg;
+    @apply text-xl text-white;
   }
   li,
   p {
