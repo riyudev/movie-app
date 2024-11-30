@@ -10,6 +10,7 @@
     @apply text-xl text-white;
   }
   li,
+  label,
   p {
     @apply font-poppinsRegular text-white;
   }

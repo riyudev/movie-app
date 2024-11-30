@@ -7,7 +7,9 @@ import { TiArrowSortedDown } from "react-icons/ti";
 
 function Navbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const dropdownRef = useRef(null);
+  const navRef = useRef();
 
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
@@ -26,8 +28,26 @@ function Navbar() {
     };
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 0);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <nav className="fixed flex justify-between items-center bg-gradient-to-b from-slate-950 to-transparent w-full px-[8%] py-8 z-10">
+    <nav
+      ref={navRef}
+      className={`fixed flex justify-between items-center w-full px-[8%] py-6 z-10 transition-all duration-300 ${
+        isScrolled
+          ? "bg-black/80"
+          : "bg-gradient-to-b from-slate-950 to-transparent"
+      }`}
+    >
       {/* Left Section */}
       <div className="flex">
         <div className="flex items-center justify-center max-w-32 min-w-24 w-full">
@@ -66,7 +86,7 @@ function Navbar() {
           <TiArrowSortedDown className="text-sm tablet:text-2xl" />
           {isDropdownOpen && (
             <div className="absolute top-full right-0 w-max bg-gray-500 place-items-center gap-y-2 mt-2 py-[3px] px-[6px] tablet:py-[5px] tablet:px-[10px] rounded-[2px] z-10">
-              <p className="text-xs tablet:text-base cursor-pointer hover:bg-gray-700 p-2 rounded underline">
+              <p className="text-xs tablet:text-sm cursor-pointer hover:bg-gray-700 p-2 rounded underline">
                 Sign Out
               </p>
             </div>
