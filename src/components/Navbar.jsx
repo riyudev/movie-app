@@ -29,7 +29,6 @@ function Navbar() {
     try {
       await new Promise((resolve) => setTimeout(resolve, 2000));
       logout();
-      window.location.href = "/login";
     } catch (error) {
       console.error("Error during sign out:", error);
     }
