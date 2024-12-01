@@ -1,45 +1,105 @@
 import React, { useState } from "react";
 import Logo from "../assets/netflix-logo.png";
+import Spinner from "../assets/loading.gif";
+import { MdErrorOutline } from "react-icons/md";
+import { login, signup } from "../Firebase.js";
 
 function Login() {
   const [signState, setSignState] = useState("Sign In");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  return (
+  const user_auth = async (event) => {
+    event.preventDefault();
+    setLoading(true);
+    setError(false);
+    try {
+      if (signState === "Sign In") {
+        await login(email, password);
+      } else {
+        await signup(name, email, password);
+      }
+    } catch (err) {
+      setError(true);
+    }
+    setLoading(false);
+  };
+
+  const toggleSignState = () => {
+    setSignState((prevState) =>
+      prevState === "Sign In" ? "Sign Up" : "Sign In"
+    );
+    setName("");
+    setEmail("");
+    setPassword("");
+    setError(false);
+  };
+
+  return loading ? (
+    <div className="flex justify-center items-center h-screen">
+      <img src={Spinner} alt="" className="w-32" />
+    </div>
+  ) : (
     <div
       className="flex flex-col items-center justify-center h-screen bg-cover bg-center"
       style={{ backgroundImage: `url(/bglogin.jpg)` }}
     >
       <img src={Logo} alt="" className="absolute top-[3%] left-[6%] w-36" />
 
-      <form className="flex flex-col bg-black bg-opacity-60 p-10 space-y-8 rounded-md max-w-[400px] w-full">
+      <form
+        className="flex flex-col bg-black bg-opacity-60 p-10 px-12 space-y-8 rounded-md max-w-[400px] w-full"
+        onSubmit={user_auth}
+      >
         <h2 className="font-poppinsBold tracking-wider">{signState}</h2>
 
         <div className="flex flex-col space-y-4 font-poppinsRegular">
-          {signState === "Sign Up" ? (
+          <div
+            className={`flex space-x-1 justify-center items-center ${
+              error ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <MdErrorOutline className="text-red-600 text-sm" />
+            <p className="text-red-600 text-xs text-center">
+              Invalid credentials!
+            </p>
+          </div>
+
+          {signState === "Sign Up" && (
             <input
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               type="text"
               placeholder="Your Name"
               required
               className="rounded-sm"
             />
-          ) : (
-            <></>
           )}
 
           <input
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             type="email"
             placeholder="Email"
             required
             className="rounded-sm"
           />
           <input
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             type="password"
             placeholder="Password"
             required
             className="rounded-sm"
           />
         </div>
-        <button className="bg-red-600 hover:bg-red-700 rounded-sm py-3">
+
+        <button
+          type="submit"
+          className="bg-red-600 hover:bg-red-700 rounded-sm py-3"
+        >
           <p>{signState}</p>
         </button>
 
@@ -61,9 +121,7 @@ function Login() {
             <p>
               New to Netflix?{" "}
               <span
-                onClick={() => {
-                  setSignState("Sign Up");
-                }}
+                onClick={toggleSignState}
                 className="underline text-blue-600 cursor-pointer"
               >
                 Sign Up Now
@@ -73,9 +131,7 @@ function Login() {
             <p>
               Already have an Account?{" "}
               <span
-                onClick={() => {
-                  setSignState("Sign In");
-                }}
+                onClick={toggleSignState}
                 className="underline text-blue-600 cursor-pointer"
               >
                 Sign In Now

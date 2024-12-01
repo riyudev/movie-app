@@ -4,6 +4,7 @@ import { FiSearch } from "react-icons/fi";
 import { FaRegBell } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { TiArrowSortedDown } from "react-icons/ti";
+import { logout } from "../Firebase.js";
 
 function Navbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -42,9 +43,9 @@ function Navbar() {
   return (
     <nav
       ref={navRef}
-      className={`fixed flex justify-between items-center w-full px-[8%] py-6 z-10 transition-all duration-300 ${
+      className={`fixed flex justify-between items-center w-full px-[8%] py-6 z-10 transition-all duration-500 ${
         isScrolled
-          ? "bg-black/80"
+          ? "bg-black/90"
           : "bg-gradient-to-b from-slate-950 to-transparent"
       }`}
     >
@@ -86,7 +87,12 @@ function Navbar() {
           <TiArrowSortedDown className="text-sm tablet:text-2xl" />
           {isDropdownOpen && (
             <div className="absolute top-full right-0 w-max bg-gray-500 place-items-center gap-y-2 mt-2 py-[3px] px-[6px] tablet:py-[5px] tablet:px-[10px] rounded-[2px] z-10">
-              <p className="text-xs tablet:text-sm cursor-pointer hover:bg-gray-700 p-2 rounded underline">
+              <p
+                onClick={() => {
+                  logout();
+                }}
+                className="text-xs tablet:text-sm cursor-pointer hover:bg-gray-700 p-2 rounded underline"
+              >
                 Sign Out
               </p>
             </div>

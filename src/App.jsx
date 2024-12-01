@@ -1,11 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import Home from "./pages/Home";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Login from "./pages/Login.jsx";
 import Player from "./pages/Player.jsx";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./Firebase.js";
 
 function App() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        console.log("Log In");
+
+        if (location.pathname === "/login") {
+          navigate("/");
+        }
+      } else {
+        console.log("Log Out");
+
+        if (location.pathname !== "/login") {
+          navigate("/login");
+        }
+      }
+    });
+  }, [auth, location.pathname, navigate]);
+
   return (
     <div className="bg-black">
       <Routes>

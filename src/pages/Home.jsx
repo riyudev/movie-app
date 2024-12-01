@@ -15,7 +15,7 @@ function Home() {
         <div className="absolute inset-0 bg-gradient-to-br from-slate-950 to-transparent"></div>
 
         <div className="absolute bottom-2 w-full pl-[6%] space-y-6">
-          <figure className="space-y-4 w-[40%]">
+          <figure className="space-y-4 w-[35%]">
             <h1>The Platform 2</h1>
 
             <p className="text-base">

@@ -40,7 +40,7 @@ const MovieCards = ({ title, category }) => {
       </h2>
       <div
         ref={cardsRef}
-        className="flex space-x-3 max-w-full overflow-x-scroll scrollbar-none mt-3 py-3"
+        className="flex space-x-3 max-w-full overflow-x-scroll scrollbar-none mt-3 py-3 px-2"
       >
         {apiData.map((card, index) => (
           <Link
