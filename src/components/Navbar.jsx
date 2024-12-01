@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import Logo from "../assets/netflix-logo.png";
+import Spinner from "../assets/loading.gif";
 import { FiSearch } from "react-icons/fi";
 import { FaRegBell } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
@@ -9,6 +10,7 @@ import { logout } from "../Firebase.js";
 function Navbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [loading, setLoading] = useState(false);
   const dropdownRef = useRef(null);
   const navRef = useRef();
 
@@ -20,6 +22,18 @@ function Navbar() {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       setIsDropdownOpen(false);
     }
+  };
+
+  const handleSignOut = async () => {
+    setLoading(true);
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      logout();
+      window.location.href = "/login";
+    } catch (error) {
+      console.error("Error during sign out:", error);
+    }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -39,6 +53,14 @@ function Navbar() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen bg-transparent">
+        <img src={Spinner} alt="Loading..." className="w-32" />
+      </div>
+    );
+  }
 
   return (
     <nav
@@ -88,9 +110,7 @@ function Navbar() {
           {isDropdownOpen && (
             <div className="absolute top-full right-0 w-max bg-gray-500 place-items-center gap-y-2 mt-2 py-[3px] px-[6px] tablet:py-[5px] tablet:px-[10px] rounded-[2px] z-10">
               <p
-                onClick={() => {
-                  logout();
-                }}
+                onClick={handleSignOut}
                 className="text-xs tablet:text-sm cursor-pointer hover:bg-gray-700 p-2 rounded underline"
               >
                 Sign Out
