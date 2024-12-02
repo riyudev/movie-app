@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { PiArrowCircleLeftThin } from "react-icons/pi";
 import { useNavigate, useParams } from "react-router-dom";
+import Spinner from "../assets/loading.gif"; // Import the spinner
 
 function Player() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [apiData, SetApiData] = useState({
-    name: "",
-    key: "",
-    published_at: "",
-    typeof: "",
-  });
+  const [apiData, setApiData] = useState(null);
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const options = {
     method: "GET",
@@ -23,37 +21,68 @@ function Player() {
   };
 
   useEffect(() => {
-    fetch(
-      `https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`,
-      options
-    )
-      .then((res) => res.json())
-      .then((res) => SetApiData(res.results[0]))
-      .catch((err) => console.error(err));
-  }, []);
+    let timer; // For spinner delay
+
+    setIsLoading(true); // Start the loading state
+
+    timer = setTimeout(() => {
+      fetch(
+        `https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`,
+        options
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.results && data.results.length > 0) {
+            setApiData(data.results[0]);
+          } else {
+            setError("No videos found for this movie.");
+          }
+        })
+        .catch(() => {
+          setError("Failed to fetch video data. Please try again later.");
+        })
+        .finally(() => {
+          setIsLoading(false); // End the loading state
+        });
+    }, 300); // Delay of 500ms
+
+    return () => clearTimeout(timer); // Cleanup timeout on unmount
+  }, [id]);
 
   return (
     <div className="flex flex-col justify-center items-center h-screen">
       <PiArrowCircleLeftThin
         onClick={() => {
-          navigate("/");
+          navigate(-1); // Navigate back to the previous page
         }}
         className="absolute top-5 left-5 text-5xl text-white hover:text-slate-400 cursor-pointer"
       />
-      <iframe
-        width="85%"
-        height="85%"
-        src={`https://www.youtube.com/embed/${apiData.key}`}
-        allow="autoplay;"
-        title="trailer"
-        frameBorder="0"
-        allowFullScreen
-      ></iframe>
-      <div className="flex justify-between w-[85%] mt-5">
-        <p>{apiData.published_at.slice(0, 10)}</p>
-        <p>{apiData.name}</p>
-        <p>{apiData.type}</p>
-      </div>
+      {error ? (
+        <div className="flex flex-col justify-center items-center">
+          <p className="text-white text-lg">{error}</p>
+        </div>
+      ) : isLoading ? (
+        <div className="flex justify-center items-center h-screen">
+          <img src={Spinner} alt="Loading..." className="w-32" />
+        </div>
+      ) : apiData ? (
+        <>
+          <iframe
+            width="85%"
+            height="85%"
+            src={`https://www.youtube.com/embed/${apiData.key}`}
+            allow="autoplay;"
+            title="trailer"
+            frameBorder="0"
+            allowFullScreen
+          ></iframe>
+          <div className="flex justify-between w-[85%] mt-5">
+            <p>{apiData.published_at.slice(0, 10)}</p>
+            <p>{apiData.name}</p>
+            <p>{apiData.type}</p>
+          </div>
+        </>
+      ) : null}
     </div>
   );
 }

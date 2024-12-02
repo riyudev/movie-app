@@ -29,13 +29,17 @@ function Login() {
   };
 
   const toggleSignState = () => {
-    setSignState((prevState) =>
-      prevState === "Sign In" ? "Sign Up" : "Sign In"
-    );
-    setName("");
-    setEmail("");
-    setPassword("");
-    setError(false);
+    setLoading(true);
+    setTimeout(() => {
+      setSignState((prevState) =>
+        prevState === "Sign In" ? "Sign Up" : "Sign In"
+      );
+      setName("");
+      setEmail("");
+      setPassword("");
+      setError(false);
+      setLoading(false);
+    }, 1000);
   };
 
   return loading ? (
