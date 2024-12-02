@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { PiArrowCircleLeftThin } from "react-icons/pi";
 import { useNavigate, useParams } from "react-router-dom";
-import Spinner from "../assets/loading.gif"; // Import the spinner
+import Spinner from "../assets/loading.gif";
 
 function Player() {
   const { id } = useParams();
@@ -21,9 +21,9 @@ function Player() {
   };
 
   useEffect(() => {
-    let timer; // For spinner delay
+    let timer;
 
-    setIsLoading(true); // Start the loading state
+    setIsLoading(true);
 
     timer = setTimeout(() => {
       fetch(
@@ -42,18 +42,18 @@ function Player() {
           setError("Failed to fetch video data. Please try again later.");
         })
         .finally(() => {
-          setIsLoading(false); // End the loading state
+          setIsLoading(false);
         });
-    }, 300); // Delay of 500ms
+    }, 300);
 
-    return () => clearTimeout(timer); // Cleanup timeout on unmount
+    return () => clearTimeout(timer);
   }, [id]);
 
   return (
     <div className="flex flex-col justify-center items-center h-screen">
       <PiArrowCircleLeftThin
         onClick={() => {
-          navigate(-1); // Navigate back to the previous page
+          navigate(-1);
         }}
         className="absolute top-5 left-5 text-5xl text-white hover:text-slate-400 cursor-pointer"
       />
