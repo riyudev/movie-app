@@ -92,11 +92,11 @@ function Navbar() {
 
       {/* Right Section */}
       <div className="flex items-center justify-center text-white gap-x-3 tablet:gap-x-5 ml-4">
-        <FiSearch className="text-sm tablet:text-xl" />
-        <p className="text-xs tablet:text-sm cursor-pointer hover:text-red-600">
+        <FiSearch className="text-lg tablet:text-xl" />
+        <p className="hidden laptop:block tablet:text-sm cursor-pointer hover:text-red-600">
           Children
         </p>
-        <FaRegBell className="text-sm tablet:text-xl" />
+        <FaRegBell className="hidden laptop:block text-sm tablet:text-xl" />
 
         {/* Profile Dropdown */}
         <div
@@ -104,13 +104,13 @@ function Navbar() {
           ref={dropdownRef}
           onClick={toggleDropdown}
         >
-          <CgProfile className="text-sm tablet:text-xl" />
-          <TiArrowSortedDown className="text-sm tablet:text-2xl" />
+          <CgProfile className="text-lg tablet:text-xl" />
+          <TiArrowSortedDown className="text-xl tablet:text-2xl" />
           {isDropdownOpen && (
             <div className="absolute top-full right-0 w-max bg-gray-500 place-items-center gap-y-2 mt-2 py-[3px] px-[6px] tablet:py-[5px] tablet:px-[10px] rounded-[2px] z-10">
               <p
                 onClick={handleSignOut}
-                className="text-xs tablet:text-sm cursor-pointer hover:bg-gray-700 p-2 rounded underline"
+                className="text-sm cursor-pointer hover:bg-gray-700 p-2 rounded underline"
               >
                 Sign Out
               </p>

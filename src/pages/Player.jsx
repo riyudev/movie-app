@@ -68,18 +68,19 @@ function Player() {
       ) : apiData ? (
         <>
           <iframe
-            width="85%"
-            height="85%"
+            className="laptop:size-[85%]"
             src={`https://www.youtube.com/embed/${apiData.key}`}
             allow="autoplay;"
             title="trailer"
             frameBorder="0"
             allowFullScreen
           ></iframe>
-          <div className="flex justify-between w-[85%] mt-5">
-            <p>{apiData.published_at.slice(0, 10)}</p>
-            <p>{apiData.name}</p>
-            <p>{apiData.type}</p>
+          <div className="flex flex-col laptop:flex-row justify-between space-y-3 laptop:space-y-0 w-[85%] mt-5">
+            <p className="text-sm laptop:text-base">
+              {apiData.published_at.slice(0, 10)}
+            </p>
+            <p className="text-sm laptop:text-base">{apiData.name}</p>
+            <p className="text-sm laptop:text-base">{apiData.type}</p>
           </div>
         </>
       ) : null}

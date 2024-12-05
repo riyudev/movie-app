@@ -35,7 +35,7 @@ const MovieCards = ({ title, category }) => {
 
   return (
     <div className="">
-      <h2 className="font-poppinsBold text-2xl mt-10">
+      <h2 className="font-poppinsBold text-xl laptop:text-2xl mt-10">
         {title ? title : "Popular on Netflix"}
       </h2>
       <div
@@ -46,7 +46,7 @@ const MovieCards = ({ title, category }) => {
           <Link
             to={`/player/${card.id}`}
             key={index}
-            className="relative flex-shrink-0 w-60 cursor-pointer hover:scale-105 duration-200 ease-in-out"
+            className="relative flex-shrink-0 w-52 laptop:w-60 cursor-pointer hover:scale-105 duration-200 ease-in-out"
           >
             <div className="absolute inset-0 bg-gradient-to-tr from-slate-900 to-transparent"></div>
             <img
@@ -54,7 +54,7 @@ const MovieCards = ({ title, category }) => {
               alt=""
               className="cursor-pointer object-cover rounded-md"
             />
-            <p className="absolute bottom-1 left-1 font-poppinsRegular text-center text-lg">
+            <p className="absolute bottom-1 left-1 font-poppinsRegular text-center text-sm laptop:text-lg">
               {card.original_title}
             </p>
           </Link>
