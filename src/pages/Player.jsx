@@ -63,12 +63,12 @@ function Player() {
         </div>
       ) : isLoading ? (
         <div className="flex justify-center items-center h-screen">
-          <img src={Spinner} alt="Loading..." className="w-32" />
+          <img src={Spinner} alt="Loading..." className="w-20 laptop:w-32" />
         </div>
       ) : apiData ? (
         <>
           <iframe
-            className="laptop:size-[85%]"
+            className="w-[98%] h-[40%] laptop:size-[85%]"
             src={`https://www.youtube.com/embed/${apiData.key}`}
             allow="autoplay;"
             title="trailer"
