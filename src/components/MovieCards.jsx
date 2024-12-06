@@ -51,8 +51,8 @@ const MovieCards = ({ title, category }) => {
             <div className="absolute inset-0 bg-gradient-to-tr from-slate-900 to-transparent"></div>
             <img
               src={`https://image.tmdb.org/t/p/w500` + card.backdrop_path}
-              alt=""
-              className="cursor-pointer object-cover rounded-md"
+              alt="no images to show :("
+              className="cursor-pointer object-cover rounded-md text-white"
             />
             <p className="absolute bottom-1 left-1 font-poppinsRegular text-center text-sm laptop:text-lg">
               {card.original_title}
