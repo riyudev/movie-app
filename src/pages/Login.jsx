@@ -7,8 +7,8 @@ import { login, signup } from "../Firebase.js";
 function Login() {
   const [signState, setSignState] = useState("Sign In");
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("testadmin@gmail.com"); 
-  const [password, setPassword] = useState("testadmin"); 
+  const [email, setEmail] = useState("testadmin@gmail.com");
+  const [password, setPassword] = useState("testadmin");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -29,12 +29,9 @@ function Login() {
   };
 
   const toggleSignState = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setSignState((prevState) =>
-        prevState === "Sign In" ? "Sign Up" : "Sign In"
-      );
-      if (prevState === "Sign In") {
+    setSignState((currentState) => {
+      const newState = currentState === "Sign In" ? "Sign Up" : "Sign In";
+      if (newState === "Sign Up") {
         setName("");
         setEmail("");
         setPassword("");
@@ -42,9 +39,9 @@ function Login() {
         setEmail("testadmin@gmail.com");
         setPassword("testadmin");
       }
-      setError(false);
-      setLoading(false);
-    }, 1000);
+      return newState;
+    });
+    setError(false);
   };
 
   useEffect(() => {
@@ -100,7 +97,9 @@ function Login() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             type="email"
-            placeholder={signState === "Sign In" ? "testadmin@gmail.com" : "Email"}
+            placeholder={
+              signState === "Sign In" ? "testadmin@gmail.com" : "Email"
+            }
             required
             className="rounded-sm text-sm laptop:text-base p-2"
           />
