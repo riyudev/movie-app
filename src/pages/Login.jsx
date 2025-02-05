@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Logo from "../assets/netflix-logo.png";
 import Spinner from "../assets/loading.gif";
 import { MdErrorOutline } from "react-icons/md";
@@ -7,8 +7,8 @@ import { login, signup } from "../Firebase.js";
 function Login() {
   const [signState, setSignState] = useState("Sign In");
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("testadmin@gmail.com"); 
+  const [password, setPassword] = useState("testadmin"); 
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -34,13 +34,25 @@ function Login() {
       setSignState((prevState) =>
         prevState === "Sign In" ? "Sign Up" : "Sign In"
       );
-      setName("");
-      setEmail("");
-      setPassword("");
+      if (prevState === "Sign In") {
+        setName("");
+        setEmail("");
+        setPassword("");
+      } else {
+        setEmail("testadmin@gmail.com");
+        setPassword("testadmin");
+      }
       setError(false);
       setLoading(false);
     }, 1000);
   };
+
+  useEffect(() => {
+    if (signState === "Sign In") {
+      setEmail("testadmin@gmail.com");
+      setPassword("testadmin");
+    }
+  }, []);
 
   return loading ? (
     <div className="flex justify-center items-center h-screen">
@@ -88,7 +100,7 @@ function Login() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             type="email"
-            placeholder="Email"
+            placeholder={signState === "Sign In" ? "testadmin@gmail.com" : "Email"}
             required
             className="rounded-sm text-sm laptop:text-base p-2"
           />
@@ -96,7 +108,7 @@ function Login() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             type="password"
-            placeholder="Password"
+            placeholder={signState === "Sign In" ? "testadmin" : "Password"}
             required
             className="rounded-sm text-sm laptop:text-base p-2"
           />
