@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
 
-const MovieCards = ({ title, category }) => {
+const MovieCards = ({ title, category, onMovieClick }) => {
   const cardsRef = useRef();
   const [apiData, setApiData] = useState([]);
 
@@ -43,9 +42,9 @@ const MovieCards = ({ title, category }) => {
         className="flex space-x-3 max-w-full overflow-x-scroll scrollbar-none mt-3 py-3 px-2"
       >
         {apiData.map((card, index) => (
-          <Link
-            to={`/player/${card.id}`}
+          <div
             key={index}
+            onClick={() => onMovieClick(card)}
             className="relative flex-shrink-0 w-52 laptop:w-60 cursor-pointer hover:scale-105 duration-200 ease-in-out"
           >
             <div className="absolute inset-0 bg-gradient-to-tr from-slate-900 to-transparent"></div>
@@ -57,7 +56,7 @@ const MovieCards = ({ title, category }) => {
             <p className="absolute bottom-1 left-1 font-poppinsRegular text-center text-sm laptop:text-lg">
               {card.original_title}
             </p>
-          </Link>
+          </div>
         ))}
       </div>
     </div>
