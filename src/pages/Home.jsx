@@ -102,7 +102,7 @@ function Home() {
           </>
         ) : (
           <div className="h-[50vh] laptop:h-[110vh] w-full flex items-center justify-center bg-slate-950">
-            <img src={Spinner} alt="Loading..." className="w-36 h-36" />
+            <img src={Spinner} alt="Loading..." className="w-32 h-32" />
           </div>
         )}
       </div>
